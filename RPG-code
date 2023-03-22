@@ -1,0 +1,26 @@
+H OPTION(*SRCSTMT: *NODEBUGIO)
+FMYFILE   IF   E K DISK   USROPN
+D KEYWORD         S             50
+D RECORD          DS                  LIKE(MYFILE)
+D  FIELD1                       10A
+D  FIELD2                       10A
+D  FIELD3                       10A
+D  FIELD4                        5S 0
+D  FIELD5                        6S 2
+C                   SETON                                        LR
+
+C                   EXSR      READFILE
+C                   DOW       NOT %EOF(MYFILE)
+C                   IF        %CHECK(RECORD: %SIZE(RECORD): KEYWORD) = 0
+C                   DSPF      DSPREC
+C                   ENDIF
+C                   EXSR      READFILE
+C                   ENDDO
+
+C     READFILE      BEGSR
+C                   READ      MYFILE
+C                   ENDSR
+
+C     DSPREC        BEGSR
+C                   WRITE     RECORD
+C                   ENDSR
